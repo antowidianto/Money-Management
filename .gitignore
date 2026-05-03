@@ -25,6 +25,8 @@ expo-env.d.ts
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+expo-server*.log
+expo-web-server*.log
 
 # macOS
 .DS_Store
@@ -39,3 +41,6 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# local build tooling and artifacts
+.tooling/
