@@ -7,13 +7,26 @@ $gradleProject = Join-Path $root "android"
 $sourceApk = Join-Path $gradleProject "app\build\outputs\apk\release\app-release.apk"
 $dist = Join-Path $root "dist"
 $targetApk = Join-Path $dist "KasKu-android14-preview.apk"
+$setupScript = Join-Path $root "scripts\setup-android-tooling.ps1"
 
-if (-not (Test-Path (Join-Path $javaHome "bin\java.exe"))) {
-  throw "Portable JDK not found at $javaHome"
+if (-not (Test-Path (Join-Path $root "node_modules"))) {
+  Write-Host "Installing npm dependencies"
+  Push-Location $root
+  try {
+    npm install
+  } finally {
+    Pop-Location
+  }
 }
 
-if (-not (Test-Path (Join-Path $androidHome "platforms\android-36"))) {
-  throw "Android SDK platform 36 not found at $androidHome"
+if (
+  -not (Test-Path (Join-Path $javaHome "bin\java.exe")) -or
+  -not (Test-Path (Join-Path $androidHome "platforms\android-36")) -or
+  -not (Test-Path (Join-Path $androidHome "build-tools\36.0.0")) -or
+  -not (Test-Path (Join-Path $androidHome "ndk\27.1.12297006"))
+) {
+  Write-Host "Preparing portable Android build tooling"
+  & powershell -ExecutionPolicy Bypass -File $setupScript
 }
 
 if (-not (Test-Path (Join-Path $gradleProject "gradlew.bat"))) {

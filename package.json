@@ -8,6 +8,7 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
+    "setup:android": "powershell -ExecutionPolicy Bypass -File scripts/setup-android-tooling.ps1",
     "build:android:apk": "powershell -ExecutionPolicy Bypass -File scripts/build-android-apk.ps1"
   },
   "dependencies": {
