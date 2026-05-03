@@ -18,13 +18,13 @@ if (-not (Test-Path (Join-Path $root "node_modules"))) {
     Pop-Location
   }
 }
-
+ 
 if (
   -not (Test-Path (Join-Path $javaHome "bin\java.exe")) -or
   -not (Test-Path (Join-Path $androidHome "platforms\android-36")) -or
   -not (Test-Path (Join-Path $androidHome "build-tools\36.0.0")) -or
   -not (Test-Path (Join-Path $androidHome "ndk\27.1.12297006"))
-) {
+) { 
   Write-Host "Preparing portable Android build tooling"
   & powershell -ExecutionPolicy Bypass -File $setupScript
 }
